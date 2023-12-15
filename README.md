@@ -53,6 +53,69 @@ Getting this weather engineering gem up and running is as simple as following th
 **Note:**
 Ensure you have Node.js and npm installed. As this project uses TypeScript, make sure your code editor supports TypeScript and is configured correctly.
 
+## Data Flow / Programming Flow
+
++-----------------------------------+
+|         Data Layer                |
++-----------------------------------+
+      |
+      V
++-----------------------------------+
+|        Dependencies               |
+|   (ApiService, DependencyManager)  |
++---------------|-------------------+
+               |
+               V
++-----------------------------------+
+|           Entities                |
+| (Climate, DataWrapper)             |
++---------------|-------------------+
+               |
+               V
++-----------------------------------+
+|           Services                |
+|       (ClimateServices)            |
++-----------------------------------+
+
++-----------------------------------+
+|         Domain Layer              |
++-----------------------------------+
+      |
+      V
++-----------------------------------+
+|          Entities                 |
+| (Climate, DataWrapper, Status)     |
++---------------|-------------------+
+               |
+               V
++-----------------------------------+
+|         Converters                |
+|   (ClimateConverters)             |
++---------------|-------------------+
+               |
+               V
++-----------------------------------+
+|          Use Cases                |
+|   (ClimateUseCases)               |
++---------------|-------------------+
+               |
+               V
++-----------------------------------+
+|         Controllers               |
+|   (ClimateController)             |
++-----------------------------------+
+
++-----------------------------------+
+|        User Interface             |
++-----------------------------------+
+      |
+      V
++-----------------------------------+
+|           UI Flow                  |
+|  (Local State, Reactive Interface,|
+|   Loading, Error, OK, Buttons)     |
++-----------------------------------+
+
 ## Data: Data Management 📊
 
 The **Data** layer is the backbone of our project, responsible for managing data from external sources. Let's delve into its key elements:
