@@ -55,66 +55,67 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 
 ## Data Flow / Programming Flow
 
-+-----------------------------------+
-|         Data Layer                |
-+-----------------------------------+
-      |
-      V
-+-----------------------------------+
-|        Dependencies               |
-|   (ApiService, DependencyManager)  |
-+---------------|-------------------+
-               |
-               V
-+-----------------------------------+
-|           Entities                |
-| (Climate, DataWrapper)             |
-+---------------|-------------------+
-               |
-               V
-+-----------------------------------+
-|           Services                |
-|       (ClimateServices)            |
-+-----------------------------------+
+¡Mis disculpas por la confusión! Aquí está una versión mejor formateada para que sea más fácil de leer en un README:
 
-+-----------------------------------+
-|         Domain Layer              |
-+-----------------------------------+
-      |
-      V
-+-----------------------------------+
-|          Entities                 |
-| (Climate, DataWrapper, Status)     |
-+---------------|-------------------+
-               |
-               V
-+-----------------------------------+
-|         Converters                |
-|   (ClimateConverters)             |
-+---------------|-------------------+
-               |
-               V
-+-----------------------------------+
-|          Use Cases                |
-|   (ClimateUseCases)               |
-+---------------|-------------------+
-               |
-               V
-+-----------------------------------+
-|         Controllers               |
-|   (ClimateController)             |
-+-----------------------------------+
+### Data Flow / Programming Flow
 
+#### Data Layer
+
+```
++---------------------------------+
+|      Dependencies               |
+| (ApiService, DependencyManager) |
++---------------------------------+
+            |
+            V
++-------------------------+
+|        Entities         |
+| (Climate, DataWrapper)  |
++-------------------------+
+            |
+            V
++-------------------------+
+|        Services         |
+|    (ClimateServices)    |
++-------------------------+
+```
+
+#### Domain Layer
+
+```
++--------------------------------+
+|        Entities                |
+| (Climate, DataWrapper, Status) |
++--------------------------------+
+            |
+            V
++-------------------------+
+|       Converters        |
+| (ClimateConverters)     |
++-------------------------+
+            |
+            V
++-------------------------+
+|       Use Cases         |
+| (ClimateUseCases)       |
++-------------------------+
+            |
+            V
++-------------------------+
+|      Controllers        |
+| (ClimateController)     |
++-------------------------+
+```
+
+#### User Interface
+
+```
 +-----------------------------------+
-|        User Interface             |
-+-----------------------------------+
-      |
-      V
-+-----------------------------------+
-|           UI Flow                  |
-|  (Local State, Reactive Interface,|
-|   Loading, Error, OK, Buttons)     |
-+-----------------------------------+
+|         UI Flow                   |
+| (Local State, Reactive Interface, |
+|  Loading, Error, OK, Buttons)     |
++-----------------------------------+     
+```
 
 ## Data: Data Management 📊
 
