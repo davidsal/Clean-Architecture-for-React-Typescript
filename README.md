@@ -83,36 +83,43 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 
 #### Domain Layer
 
-```plaintext
+
 1. Essential data structures intended for use throughout the UI and Domain (i.e., across the entire app) are meticulously crafted, with a strict prohibition on Null/Undefined values.
 
 2. A resilient **DataWrapper** is designed, rejecting Null or Undefined values while concurrently featuring a **Status** indicator, revealing the state of the data (e.g., Ok, Error, and Loading).
+
+```plaintext
 +--------------------------------+
 |        Entities                |
 | (Climate, DataWrapper, Status) |
 +--------------------------------+
             |
             V
+```
 3. A specialized **ClimateConverter** is implemented to seamlessly transform the data retrieved from **ClimateResponse** (via the GET request) into a format compatible with **Climate**, the structure utilized throughout the app.
+```plaintext
 +-------------------------+
 |       Converters        |
 | (ClimateConverters)     |
 +-------------------------+
             |
             V
+```
 4. **ClimateUseCases** are meticulously crafted to initiate calls to the Data → ClimateServices layer. This layer efficiently prepares the data in the form of **Climate**, ready for extensive utilization throughout the app. If needed, supplementary modifiers, such as temperature conversion from Celsius to Fahrenheit, can be seamlessly integrated here, ensuring a consistent impact across all controllers.
+```plaintext
 +-------------------------+
 |       Use Cases         |
 | (ClimateUseCases)       |
 +-------------------------+
             |
             V
+```
 5. The controller invokes the **ClimateUseCase**, retrieving the meticulously prepared data ready for presentation in the UI. Any localized modifications, such as adjusting decimal points, should be executed at this stage to prevent unintended effects on the **UseCase** when utilized in other controllers.
+```plaintext
 +-------------------------+
 |       Controllers       |
 | (ClimateControllers)    |
 +-------------------------+
-
 ```
 
 #### User Interface
