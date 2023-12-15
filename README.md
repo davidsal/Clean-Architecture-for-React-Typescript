@@ -59,32 +59,37 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 
 #### Data Layer
 
-```plaintext
 1. **ApiService** is a class designed for instantiation via the **DependencyManager**.
+```plaintext
 +---------------------------------+
 |      Dependencies               |
 | (ApiService, DependencyManager) |
 +---------------------------------+
             |
             V
-2. **Climate** and **DataWrapper** are essential components used to fetch the data structure from the API request. They encapsulate the process, providing access to data (from the API), signaling success (if the request worked), and detailing errors (to identify the cause of failure).
-+-------------------------+
-|        Entities         |
+```
+2. **ClimateResponse** and **DataWrapperResponse** are essential components used to fetch the data structure from the API request. They encapsulate the process, providing access to data (from the API), signaling success (if the request worked), and detailing errors (to identify the cause of failure).
+```plaintext
++-----------------------------------------+
+|        Entities                         |
 | (ClimateResponse, DataWrapperResponse)  |
-+-------------------------+
++-----------------------------------------+
             |
             V
+```
 3. Subsequently, **ClimateService** employs the **DependencyManager** to access **ApiService** and initiates a GET call, providing URL and Path data. The resulting data is prepared for retrieval by the Use Cases within the Domain layer.
+```plaintext
 +-------------------------+
 |        Services         |
 |    (ClimateServices)    |
 +-------------------------+
+            |
+            V
 ```
 
 #### Domain Layer
 
-
-1. Essential data structures intended for use throughout the UI and Domain (i.e., across the entire app) are meticulously crafted, with a strict prohibition on Null/Undefined values.
+1. Essential data structures (**Climate**) intended for use throughout the UI and Domain (i.e., across the entire app) are meticulously crafted, with a strict prohibition on Null/Undefined values.
 
 2. A resilient **DataWrapper** is designed, rejecting Null or Undefined values while concurrently featuring a **Status** indicator, revealing the state of the data (e.g., Ok, Error, and Loading).
 
@@ -105,7 +110,7 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
             |
             V
 ```
-4. **ClimateUseCases** are meticulously crafted to initiate calls to the Data → ClimateServices layer. This layer efficiently prepares the data in the form of **Climate**, ready for extensive utilization throughout the app. If needed, supplementary modifiers, such as temperature conversion from Celsius to Fahrenheit, can be seamlessly integrated here, ensuring a consistent impact across all controllers.
+4. **ClimateUseCases** are meticulously crafted to initiate calls to the Data → ClimateServices layer. This layer efficiently prepares the data in the form of **Climate** by calling the **ClimateConverter**, ready for extensive utilization throughout the app. If needed, supplementary modifiers, such as temperature conversion from Celsius to Fahrenheit, can be seamlessly integrated here, ensuring a consistent impact across all controllers.
 ```plaintext
 +-------------------------+
 |       Use Cases         |
@@ -120,8 +125,9 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 |       Controllers       |
 | (ClimateControllers)    |
 +-------------------------+
+            |
+            V
 ```
-
 #### User Interface
 
 ```plaintext
@@ -130,12 +136,13 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 | (Local State, Reactive Interface, |
 |  Loading, Error, OK, Buttons)     |
 +-----------------------------------+
+```
 1. Leveraging the Loading status supplied by the **DataWrapper**, we can employ it as the initial state when no GET requests have been initiated.
 
 2. Diverse screens can be dynamically rendered based on the status provided by the **DataWrapper**.
 
 3. The manipulation of cache values becomes a flexible option by passing true/false as a parameter to the controller when clicking on a button, allowing for dynamic interaction.
-```
+
 
 ## Data: Data Management 📊
 
