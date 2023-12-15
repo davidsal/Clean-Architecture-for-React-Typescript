@@ -55,25 +55,26 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 
 ## Data Flow / Programming Flow
 
-¡Mis disculpas por la confusión! Aquí está una versión mejor formateada para que sea más fácil de leer en un README:
-
 ### Data Flow / Programming Flow
 
 #### Data Layer
 
-```
+```plaintext
+1. **ApiService** is a class designed for instantiation via the **DependencyManager**.
 +---------------------------------+
 |      Dependencies               |
 | (ApiService, DependencyManager) |
 +---------------------------------+
             |
             V
+2. **Climate** and **DataWrapper** are essential components used to fetch the data structure from the API request. They encapsulate the process, providing access to data (from the API), signaling success (if the request worked), and detailing errors (to identify the cause of failure).
 +-------------------------+
 |        Entities         |
-| (Climate, DataWrapper)  |
+| (ClimateResponse, DataWrapperResponse)  |
 +-------------------------+
             |
             V
+3. Subsequently, **ClimateService** employs the **DependencyManager** to access **ApiService** and initiates a GET call, providing URL and Path data. The resulting data is prepared for retrieval by the Use Cases within the Domain layer.
 +-------------------------+
 |        Services         |
 |    (ClimateServices)    |
@@ -82,39 +83,51 @@ Ensure you have Node.js and npm installed. As this project uses TypeScript, make
 
 #### Domain Layer
 
-```
+```plaintext
+1. Essential data structures intended for use throughout the UI and Domain (i.e., across the entire app) are meticulously crafted, with a strict prohibition on Null/Undefined values.
+
+2. A resilient **DataWrapper** is designed, rejecting Null or Undefined values while concurrently featuring a **Status** indicator, revealing the state of the data (e.g., Ok, Error, and Loading).
 +--------------------------------+
 |        Entities                |
 | (Climate, DataWrapper, Status) |
 +--------------------------------+
             |
             V
+3. A specialized **ClimateConverter** is implemented to seamlessly transform the data retrieved from **ClimateResponse** (via the GET request) into a format compatible with **Climate**, the structure utilized throughout the app.
 +-------------------------+
 |       Converters        |
 | (ClimateConverters)     |
 +-------------------------+
             |
             V
+4. **ClimateUseCases** are meticulously crafted to initiate calls to the Data → ClimateServices layer. This layer efficiently prepares the data in the form of **Climate**, ready for extensive utilization throughout the app. If needed, supplementary modifiers, such as temperature conversion from Celsius to Fahrenheit, can be seamlessly integrated here, ensuring a consistent impact across all controllers.
 +-------------------------+
 |       Use Cases         |
 | (ClimateUseCases)       |
 +-------------------------+
             |
             V
+5. The controller invokes the **ClimateUseCase**, retrieving the meticulously prepared data ready for presentation in the UI. Any localized modifications, such as adjusting decimal points, should be executed at this stage to prevent unintended effects on the **UseCase** when utilized in other controllers.
 +-------------------------+
-|      Controllers        |
-| (ClimateController)     |
+|       Controllers       |
+| (ClimateControllers)    |
 +-------------------------+
+
 ```
 
 #### User Interface
 
-```
+```plaintext
 +-----------------------------------+
 |         UI Flow                   |
 | (Local State, Reactive Interface, |
 |  Loading, Error, OK, Buttons)     |
-+-----------------------------------+     
++-----------------------------------+
+1. Leveraging the Loading status supplied by the **DataWrapper**, we can employ it as the initial state when no GET requests have been initiated.
+
+2. Diverse screens can be dynamically rendered based on the status provided by the **DataWrapper**.
+
+3. The manipulation of cache values becomes a flexible option by passing true/false as a parameter to the controller when clicking on a button, allowing for dynamic interaction.
 ```
 
 ## Data: Data Management 📊
