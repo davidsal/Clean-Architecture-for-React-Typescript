@@ -13,10 +13,11 @@ class ClimateController {
      * @returns {Promise<DataWrapper<Climate>>} - A promise resolving to a DataWrapper containing climate data.
      */
     static async getClimate(
-        cache: boolean = false
+        cache: boolean = false,
+        useRealApi: boolean = false
     ): Promise<DataWrapper<Climate>> {
         // Invoke the climate use case with the specified caching option
-        return getClimateUseCase(cache);
+        return getClimateUseCase(cache, useRealApi);
     }
 }
 

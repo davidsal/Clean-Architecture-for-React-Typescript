@@ -6,7 +6,9 @@ import {
     Card,
     CardContent,
     Button,
-    Box
+    Box,
+    Checkbox,
+    FormControlLabel,
 } from '@mui/material';
 import { Climate } from '../../domain/entities/climateEntities';
 import ClimateController from '../../domain/controllers/climateController';
@@ -18,21 +20,22 @@ const MainPage: React.FC = () => {
         data: {
             altitude: 0,
             pressure: 0,
-            temperature: 0
+            temperature: 0,
         },
         status: Status.LOADING,
-        message: ''
+        message: '',
     });
 
+    const [realApi, setRealApi] = useState(false);
+
     const getClimate = async (cache: boolean) => {
-        
-        setClimate(prevClimate => ({
+        setClimate((prevClimate) => ({
             ...prevClimate,
             status: Status.LOADING,
-            message: ''
+            message: '',
         }));
 
-        const data = await ClimateController.getClimate(cache);
+        const data = await ClimateController.getClimate(cache, realApi);
         setClimate(data);
     };
 
@@ -43,7 +46,7 @@ const MainPage: React.FC = () => {
                 marginTop: '50px',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
             }}
         >
             <Typography variant="h4" align="center" gutterBottom>
@@ -119,6 +122,17 @@ const MainPage: React.FC = () => {
                     </Grid>
                 </Grid>
             )}
+
+            <FormControlLabel style={{marginTop: '2rem'}}
+                control={
+                    <Checkbox
+                        checked={realApi}
+                        onChange={() => setRealApi(!realApi)}
+                        color="primary"
+                    />
+                }
+                label="Use real API?"
+            />
 
             <Grid
                 container
